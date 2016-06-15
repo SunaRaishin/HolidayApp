@@ -1,0 +1,102 @@
+<section>
+  <div class="page-header">
+    <h1>Holidays</h1>
+  </div>
+  <button class="btn btn-primary calendar-button" ng-click="toggleCalendar()">Show Calendar</button>
+  <br>
+  <br>
+  <div class="calendar-holder" ng-hide="calendar">
+     <h2 class="text-center">{{ vm.calendarTitle }}</h2>
+
+  <div class="row">
+
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="vm.viewDate"
+          decrement="vm.calendarView">
+          Previous
+        </button>
+        <button
+          class="btn btn-default"
+          mwl-date-modifier
+          date="vm.viewDate"
+          set-to-today>
+          Today
+        </button>
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="vm.viewDate"
+          increment="vm.calendarView">
+          Next
+        </button>
+      </div>
+    </div>
+
+    <br class="visible-xs visible-sm">
+
+  </div>
+
+  <br>
+
+  <mwl-calendar
+    events="vm.events"
+    view="vm.calendarView"
+    view-title="vm.calendarTitle"
+    view-date="vm.viewDate"
+    on-event-click="vm.eventClicked(calendarEvent)"
+    on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+    edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
+    delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
+    on-edit-event-click="vm.eventEdited(calendarEvent)"
+    on-delete-event-click="vm.eventDeleted(calendarEvent)"
+    cell-is-open="vm.isCellOpen"
+    day-view-start="06:00"
+    day-view-end="22:00"
+    day-view-split="30"
+    cell-modifier="vm.modifyCell(calendarCell)">
+  </mwl-calendar>
+
+  <br><br><br>
+  </div>
+  <div class="list-group" ng-if="currUser.user.roles[0] !== 'admin'">
+    <a data-ng-repeat="holiday in vm.holidays | filter:currUser.user.displayName as result"
+       data-ui-sref="holidays.view({ holidayId: holiday._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="holiday.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="holiday.user" data-ng-bind="holiday.user.displayName"></span>
+        <span data-ng-if="!holiday.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="holiday.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.holidays.$resolved && !vm.holidays.length">
+    No Holidays yet, why don't you <a data-ui-sref="holidays.create">create one</a>?
+  </div>
+
+       
+    <div class="list-group" ng-if="currUser.user.roles[0] == 'admin' || currUser.user.roles[0] == 'moderator' ">
+      <a data-ng-repeat="holiday in vm.holidays"
+        data-ui-sref="holidays.view({ holidayId: holiday._id })"
+        class="list-group-item">
+        <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="holiday.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="holiday.user" data-ng-bind="holiday.user.displayName"></span>
+        <span data-ng-if="!holiday.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="holiday.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.holidays.$resolved && !vm.holidays.length">
+    No Holidays yet, why don't you <a data-ui-sref="holidays.create">create one</a>?
+  </div>
+</section>

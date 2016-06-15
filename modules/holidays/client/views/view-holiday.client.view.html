@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="../css/custom.css">
+<section>
+  <div class="page-header">
+    <h2 data-ng-bind="vm.holiday.name"></h2>
+  </div>
+  <div class="container">
+    <div class="row">
+        <div class="pull-left">Start Date: </div>
+        <p class="data-input" style="margin-left:80px;" name="startDate" data-ng-bind="vm.holiday.startDate | date:'MM/dd/yyyy'"></p>
+        <div class="pull-left">End Date: </div>
+        <p class="data-input" style="margin-left:75px;" name="endDate" data-ng-bind="vm.holiday.endDate | date:'MM/dd/yyyy'"></p>
+      </div>
+      <div class="text-center">
+      <div class="btn btn-primary btn-center block status-button"> Status:
+        <div class="btn btn-danger center-block" name="status" data-ng-bind="vm.holiday.status">
+        </div>
+        </div>
+      </div>
+       <form ng-if="vm.authentication.user.roles[0] == 'admin' || vm.authentication.user.roles[0] == 'moderator' " name="vm.form.holidayForm" class="form-horizontal" ng-submit="vm.save(vm.form.holidayForm.$valid)" novalidate>
+        <div class="form-group">       
+        <label class="btn btn-primary"> Change status: </label>
+        <select class="form-control status-select" name="statusSelect" id="statusSelect" ng-model="vm.holiday.status">
+          <option value="">---Please select---</option> <!-- not selected / blank option -->
+          <option value="{{vm.statuses[1]}}" >Moderator-Approved</option> <!-- interpolation -->
+          <option value="{{vm.statuses[2]}}" >Moderator-Declined</option>
+          <option ng-if="vm.authentication.user.roles[0] == 'admin'"  value="{{vm.statuses[3]}}">Admin-Approved</option>
+          <option ng-if="vm.authentication.user.roles[0] == 'admin'" value="{{vm.statuses[4]}}">Admin-Declined</option>
+        </select><br>
+        <button type="submit" class="btn btn-primary update-status-button">{{vm.holiday._id ? 'Update Status' : 'Create'}}</button>
+        </div>
+         <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+         </form>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-warning active" data-ng-class="vm.holiday.status" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.holiday.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="holidays.edit({ holidayId: vm.holiday._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="vm.holiday.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-if="vm.holiday.user"
+            data-ng-bind="vm.holiday.user.displayName"></span>
+      <span data-ng-if="!vm.holiday.user">Deleted User</span>
+      
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.holiday.content"></p>
+</section>

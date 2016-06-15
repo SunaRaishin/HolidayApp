@@ -1,0 +1,31 @@
+.status-button{
+    margin: auto;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+#statuses{
+    background-color: red;
+}
+.update-status-button{
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.status-select{
+    width: 50%;
+    display: inline-block;
+}
+.Pending{
+    width: 35%;
+}
+.Moderator-Approved {
+    width: 70%;
+}
+.Moderator-Declined {
+    width: 35%;
+}
+.Admin-Approved{
+    width: 100%;
+}
+.Admin-Declined {
+    width: 0%;
+}

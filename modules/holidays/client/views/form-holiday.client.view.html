@@ -1,0 +1,38 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.holiday._id ? 'Edit Holiday' : 'New Holiday'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.holidayForm" class="form-horizontal" ng-submit="vm.save(vm.form.holidayForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Holiday Request</label>
+          <input name="name" type="text" ng-model="vm.holiday.name" id="name" class="form-control" placeholder="Holiday request by {{vm.authentication.user.displayName}}" required>
+          <div ng-messages="vm.form.holidayForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Holiday name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="startDate">Start Date</label>
+          <input ui-date ui-date-format="dd, mm, yyyy" name="startDate" type="text" ng-model="vm.holiday.startDate" id="startDate" class="form-control" placeholder="Starting Date" value="{{vm.holiday.startDate | date:'MM/dd/yyyy'}}" required>
+          <div ng-messages="vm.form.holidayForm.startDate.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Start date is required.</p>
+          </div>
+        </div>
+          <div class="form-group" show-errors>
+          <label class="control-label" for="endDate">End Date</label>
+          <input ui-date ui-date-format="dd, mm, yyyy" name="endDate" type="text" ng-model="vm.holiday.endDate" id="endDate" class="form-control" placeholder="Ending Date" value="{{vm.holiday.endDate | date:'MM/dd/yyyy'}}" required>
+          <div ng-messages="vm.form.holidayForm.endDate.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">End date is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.holiday._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
