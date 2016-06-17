@@ -1,5 +1,5 @@
 <div ng-controller="AuthenticationController">
-  <h3 class="col-md-12 text-center">Or sign up using your email</h3>
+  <h3 class="col-md-12 text-center">Sign up using your Comstream email</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
@@ -19,10 +19,10 @@
         </div>
         <div class="form-group" show-errors>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase required>
+          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" pattern="[a-z0-9._%+-]+@comstream.se$" placeholder="Please use your comstream email" lowercase required>
           <div ng-messages="userForm.email.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Email address is required.</p>
-            <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+            <p class="help-block error-text" ng-message="required">Email address is required. Please use your comstream e-mail.</p>
+            <p class="help-block error-text" ng-message="email">Email address is invalid. Please use your comstream e-mail.</p>
           </div>
         </div>
         <div class="form-group" show-errors>

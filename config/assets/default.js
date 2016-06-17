@@ -25,7 +25,8 @@ module.exports = {
         'public/lib/angular-ui-date/dist/date.js',
         'public/lib/moment/moment.js',
         'public/lib/angular-bootstrap/ui-bootstrap.js',
-        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js'
+        'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',
+        'public/lib/ngtouch/src/ngTouch.js'
 
 
       ],
