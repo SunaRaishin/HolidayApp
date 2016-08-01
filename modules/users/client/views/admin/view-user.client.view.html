@@ -32,20 +32,26 @@
         <div class="col-md-6" ng-bind="user.email"></div>
       </div>
       <hr/>
-      <div class="row">
+      <!--<div class="row">
         <div class="col-md-3"><strong>Provider</strong></div>
         <div class="col-md-6" ng-bind="user.provider"></div>
       </div>
-      <hr/>
+      <hr/>-->
       <div class="row">
         <div class="col-md-3"><strong>Created</strong></div>
-        <div class="col-md-6" ng-bind="user.created"></div>
+        <div class="col-md-6" ng-bind="user.created | date: medium"></div>
       </div>
       <hr/>
       <div class="row">
         <div class="col-md-3"><strong>Roles</strong></div>
         <div class="col-md-6" ng-bind="user.roles"></div>
       </div>
+      <hr/>
+      <div class="row" ng-repeat="(key,vacation) in user.vacations">
+        <div class="col-md-3"><strong>Remaining Vacation Days {{key}} </strong></div>
+        <div class="col-md-6" ng-bind="vacation"></div>
+      </div>
+      <hr/>
     </div>
   </div>
 </section>

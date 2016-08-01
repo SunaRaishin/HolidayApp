@@ -21,6 +21,10 @@
     vm.holiday.endDate = holiday.endDate;
     vm.status = holiday.status;
     vm.statuses = ['Pending', 'Moderator-Approved', 'Moderator-Declined', 'Admin-Approved', 'Admin-Declined'];
+    // Calculating Vacation Days
+    vm.dayFormula = 24*60*60*1000;
+    vm.diffDays = Math.round(Math.abs((vm.holiday.startDate - vm.holiday.endDate)/(vm.dayFormula)));
+
     // Remove existing Holiday
     function remove() {
       if (confirm('Are you sure you want to delete?')) {

@@ -14,6 +14,7 @@
     vm.authentication = Authentication;
     $scope.currUser = vm.authentication;
     vm.calendarView = 'month';
+    console.log($scope.currUser);
     vm.viewDate = new Date();
     vm.calendarTitle = 'Title';
     $scope.setEvent = function(){
@@ -23,7 +24,7 @@
         if(currentHoliday.user.displayName === vm.authentication.user.displayName){
           vm.events.push({
             title: currentHoliday.name + ' requested by ' + currentHoliday.user.displayName ,
-            type: 'warning',
+            type: 'info',
             startsAt: new Date(currentHoliday.startDate),
             endsAt:  new Date(currentHoliday.endDate),
             draggable: false,
@@ -32,7 +33,7 @@
         }else if(vm.authentication.user.roles[0] === 'admin' || vm.authentication.user.roles[0] === 'moderator'){
           vm.events.push({
             title: currentHoliday.name + ' requested by ' + currentHoliday.user.displayName ,
-            type: 'warning',
+            type: 'info',
             startsAt: new Date(currentHoliday.startDate),
             endsAt:  new Date(currentHoliday.endDate),
             draggable: false,
@@ -48,7 +49,11 @@
       $scope.setEvent();
     };
    
-
+    vm.viewChangeClicked = function(nextView) {
+      if (nextView === 'day') {
+        return false;
+      }
+    };
     vm.isCellOpen = true;
 
     vm.eventClicked = function(event) {
@@ -66,6 +71,7 @@
     vm.eventTimesChanged = function(event) {
       alert('Dropped or resized', event);
     };
+
 
     vm.toggle = function($event, field, event) {
       $event.preventDefault();

@@ -33,7 +33,7 @@ describe('User Model Unit Tests:', function () {
       firstName: 'Different',
       lastName: 'User',
       displayName: 'Full Different Name',
-      email: 'test3@test.com',
+      email: 'test3@comstream.se',
       username: 'different_username',
       password: 'Different_Password1!',
       provider: 'local'

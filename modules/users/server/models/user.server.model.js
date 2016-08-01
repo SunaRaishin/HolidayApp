@@ -84,6 +84,23 @@ var UserSchema = new Schema({
     default: ['user'],
     required: 'Please provide at least one role'
   },
+  vacations: {
+    for_2016: [{
+      type: Number,
+      min: 0,
+      max: 45
+    }],
+    for_2015: [{
+      type: Number,
+      min: 0,
+      max: 45
+    }],
+    for_2014:[{
+      type: Number,
+      min: 0,
+      max: 45
+    }]
+  },
   updated: {
     type: Date
   },

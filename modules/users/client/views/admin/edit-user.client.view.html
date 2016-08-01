@@ -28,6 +28,12 @@
             </div>
           </div>
         </div>
+        <div class="form-group" ng-repeat="(key, vacation) in user.vacations" show-errors>
+          <label class="control-label" for="key">Remaining Days {{key}}</label>
+          <div class="controls">
+            <input class="form-control" type="number" name="vacation" string-to-number ng-model="vacation" id="vacation" />
+          </div>
+        </div>
         <div class="form-group">
           <input type="submit" value="Update" class="btn btn-default">
         </div>

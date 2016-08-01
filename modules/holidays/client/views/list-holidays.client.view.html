@@ -2,7 +2,13 @@
   <div class="page-header">
     <h1>Holidays</h1>
   </div>
-  <button class="btn btn-primary calendar-button" ng-click="toggleCalendar()">Show Calendar</button>
+  <select id="sortMenu" class="btn btn-info" ng-model="sortBy">
+    <option value="None" ng-selected="true">Sort By</option>
+    <option data-ng-show="currUser.user.roles[0] == 'admin' || currUser.user.roles[0] == 'moderator'" value="user.displayName" >User</option>
+    <option value="created">Creation Date</option>
+    <option value="name">Holiday Title</option>
+  </select>
+  <button class="btn btn-info calendar-button" ng-click="toggleCalendar()">Show Calendar</button>
   <br>
   <br>
   <div class="calendar-holder" ng-hide="calendar">
@@ -14,7 +20,7 @@
       <div class="btn-group">
 
         <button
-          class="btn btn-primary"
+          class="btn btn-info"
           mwl-date-modifier
           date="vm.viewDate"
           decrement="vm.calendarView">
@@ -28,7 +34,7 @@
           Today
         </button>
         <button
-          class="btn btn-primary"
+          class="btn btn-info"
           mwl-date-modifier
           date="vm.viewDate"
           increment="vm.calendarView">
@@ -38,6 +44,15 @@
     </div>
 
     <br class="visible-xs visible-sm">
+
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+        <label class="btn btn-warning" ng-model="vm.calendarView" btn-radio="'year'">Year</label>
+        <label class="btn btn-warning" ng-model="vm.calendarView" btn-radio="'month'">Month</label>
+        <label class="btn btn-warning" ng-model="vm.calendarView" btn-radio="'week'">Week</label>
+        <label class="btn btn-warning" ng-model="vm.calendarView" btn-radio="'day'">Day</label>
+      </div>
+    </div>
 
   </div>
 
@@ -50,21 +65,17 @@
     view-date="vm.viewDate"
     on-event-click="vm.eventClicked(calendarEvent)"
     on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-    edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
-    delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
-    on-edit-event-click="vm.eventEdited(calendarEvent)"
-    on-delete-event-click="vm.eventDeleted(calendarEvent)"
     cell-is-open="vm.isCellOpen"
-    day-view-start="06:00"
-    day-view-end="22:00"
+    day-view-start="08:00"
+    day-view-end="17:00"
     day-view-split="30"
     cell-modifier="vm.modifyCell(calendarCell)">
   </mwl-calendar>
 
   <br><br><br>
   </div>
-  <div class="list-group" ng-if="currUser.user.roles[0] !== 'admin'">
-    <a data-ng-repeat="holiday in vm.holidays | filter:currUser.user.displayName as result"
+  <div class="list-group" ng-if="currUser.user.roles[0] !== 'admin' && currUser.user.roles[0] !== 'moderator' ">
+    <a data-ng-repeat="holiday in vm.holidays | orderBy:sortBy | filter:currUser.user.displayName as result"
        data-ui-sref="holidays.view({ holidayId: holiday._id })"
        class="list-group-item">
       <small class="list-group-item-text">
@@ -83,7 +94,7 @@
 
        
     <div class="list-group" ng-if="currUser.user.roles[0] == 'admin' || currUser.user.roles[0] == 'moderator' ">
-      <a data-ng-repeat="holiday in vm.holidays"
+      <a data-ng-repeat="holiday in vm.holidays | orderBy:sortBy"
         data-ui-sref="holidays.view({ holidayId: holiday._id })"
         class="list-group-item">
         <small class="list-group-item-text">

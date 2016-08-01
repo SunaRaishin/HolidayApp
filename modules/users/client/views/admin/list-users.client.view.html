@@ -9,9 +9,17 @@
       </div>
     </div>
   </div>
+  <select id="sortMenu" class="btn btn-info" style="margin-bottom: 2em" ng-model="sortBy">
+    <option value="None" ng-selected="true">Sort By</option>
+    <option value="displayName">Displayname</option>
+    <option value="username">Username</option>
+    <option value="email" >Email</option>
+  </select>
   <div class="list-group">
-    <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
+    <a ng-repeat="user in pagedItems | orderBy:sortBy" ui-sref="admin.user({userId: user._id})" class="list-group-item">
       <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
+      <h5 class="list-group-item-text" ng-bind="user.displayName"></h5>
+      <br />
       <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
       <p class="list-group-item-text" ng-bind="user.email"></p>
     </a>

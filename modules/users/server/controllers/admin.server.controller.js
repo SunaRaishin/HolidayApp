@@ -26,6 +26,9 @@ exports.update = function (req, res) {
   user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  user.vacations.for_2014 = req.body.vacations.for_2014;
+  user.vacations.for_2015 = req.body.vacations.for_2015;
+  user.vacations.for_2016 = req.body.vacations.for_2016;
 
   user.save(function (err) {
     if (err) {

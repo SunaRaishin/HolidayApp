@@ -13,7 +13,6 @@ var path = require('path'),
   crypto = require('crypto');
 
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
-
 /**
  * Forgot for reset password (forgot POST)
  */
